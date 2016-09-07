@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
+    debug = require('gulp-debug'),
     watch = require('gulp-watch'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
@@ -14,7 +15,12 @@ var gulp = require('gulp'),
     browserSync = require("browser-sync"),
     reload = browserSync.reload,
     concat = require('gulp-concat'),
-    rimraf = require('rimraf');
+    rimraf = require('rimraf'),
+    newer = require('gulp-newer'),
+    remember = require('gulp-remember'),
+    cache = require('gulp-cached'),
+    notify = require("gulp-notify"),
+    plumber = require('gulp-plumber');
 
 var path = {
     build: {
@@ -64,14 +70,16 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('html:build', function () {
-    gulp.src(path.src.html) 
+    return gulp.src(path.src.html)
+        .pipe(newer(path.build.html))
         .pipe(rigger())
         .pipe(gulp.dest(path.build.html))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('php:build', function () {
-    gulp.src(path.src.php) 
+    gulp.src(path.src.php)
+        .pipe(newer(path.build.php))
         .pipe(gulp.dest(path.build.php))
         .pipe(reload({stream: true}));
 });
@@ -88,13 +96,23 @@ gulp.task('js:build', function () {
 });
 
 gulp.task('libs:build', function () {
-    gulp.src(path.src.libs) 
+    gulp.src(path.src.libs)
+        .pipe(newer(path.build.libs))
         .pipe(gulp.dest(path.build.libs))
         .pipe(reload({stream: true}));
 });
 
 gulp.task('style:build', function () {
-    gulp.src(path.src.style) 
+    return gulp.src(path.src.style)
+        .pipe(cache('style:build'))
+	    .pipe(plumber({errorHandler:
+		    notify.onError(function (err) {
+			    return {
+				    title: 'style:build',
+				    message: err.message
+			    };
+		    })
+	    }))
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: ['./src/style/'],
@@ -103,6 +121,7 @@ gulp.task('style:build', function () {
             errLogToConsole: true
         }))
         .pipe(prefixer())
+        .pipe(remember('style:build'))
         .pipe(cssmin())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css))
@@ -110,7 +129,8 @@ gulp.task('style:build', function () {
 });
 
 gulp.task('image:build', function () {
-    gulp.src(path.src.img) 
+    gulp.src(path.src.img)
+        .pipe(newer(path.build.img))
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
@@ -123,6 +143,7 @@ gulp.task('image:build', function () {
 
 gulp.task('fonts:build', function() {
     gulp.src(path.src.fonts)
+        .pipe(newer(path.build.fonts))
         .pipe(gulp.dest(path.build.fonts))
 });
 
