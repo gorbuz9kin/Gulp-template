@@ -1,0 +1,77 @@
+//use http://www.font2web.com to generate all font formats
+@import "variables";
+
+/*@mixin add-font($font-url, $font-name, $weight: normal, $style: normal) {
+  font-family: $font-name;
+  src: url('${font-folder}${font-url}.eot');
+  src: url('${font-folder}${font-url}.eot?#iefix') format('embedded-opentype'),
+  url('${font-folder}${font-url}.woff') format('woff'),
+  url('${font-folder}${font-url}.ttf') format('truetype'),
+  url('${font-folder}${font-url}.svg#${font-name}') format('svg');
+  font-weight: $weight;
+  font-style: $style;
+}*/
+
+/*$mixin transition($prop: all, $time: 0.5s, $ease: ease-in-out) {
+  transition: $prop $time $ease;
+}*/
+
+/*$mixin placeholder($color, $opacity, $font-size, $font-family) {
+  &::-webkit-input-placeholder {
+  color: $color;
+  opacity: $opacity;
+  font-size: $font-size;
+  font-family: $font-family;
+  text-transform: none;
+  }
+  &:-moz-placeholder {
+  color: $color;
+  opacity: $opacity;
+  text-transform: none;
+  font-size: $font-size;
+  font-family: $font-family;
+  }
+  &::-moz-placeholder {
+  color: $color;
+  opacity: $opacity;
+  text-transform: none;
+  font-size: $font-size;
+  font-family: $font-family;
+  }
+  &:-ms-input-placeholder {
+  color: $color;
+  opacity: $opacity;
+  text-transform: none;
+  font-size: $font-size;
+  font-family: $font-family;
+  }
+}*/
+
+.clearfix {
+	&:before,
+	&:after {
+		content: " ";
+    	display: table;
+	}
+	&:after {
+		clear: both;
+	}
+	*zoom: 1; /* IE6/7 support */
+}
+
+/*.pie {
+	behavior: url(../libs/pie/PIE.htc); !* блок, с которым используется CSS3 PIE, должен обладать свойством - position: relative; *!
+}*/
+
+.padding-left-none {
+  padding-left: 0;
+}
+
+.padding-right-none {
+  padding-right: 0;
+}
+
+.padding-right-left-none {
+  padding-right: 0;
+  padding-left: 0;
+}

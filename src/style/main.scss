@@ -1,0 +1,46 @@
+/*
+* Подключаем Bootstrap
+*/
+@import "parts/libs/bootstrap.css";
+
+/*
+* Подключаем переменные
+*/
+@import "parts/base/variables";
+
+/*
+* Подключаем mixins
+*/
+@import "parts/base/mixins";
+
+/*
+* Подключаем шрифты
+*/
+@import "parts/base/fonts";
+@import "parts/base/font-awesome.css";
+
+/*
+* Подключаем основные стили
+*/
+@import "parts/base/base";
+
+/*
+* Подключаем стили header 
+*/
+@import "parts/layout/header";
+
+/*
+* Подключаем стилей всех секций 
+*/
+@import "parts/layout/sections";
+
+/*
+* Подключаем стили footer
+*/
+@import "parts/layout/footer";
+
+
+/*
+* Подключаем стили для адаптивности
+*/
+@import "parts/media/media";
