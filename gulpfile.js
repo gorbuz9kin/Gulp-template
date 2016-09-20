@@ -104,7 +104,7 @@ gulp.task('libs:build', function () {
 
 gulp.task('style:build', function () {
     return gulp.src(path.src.style)
-        .pipe(cache('style:build'))
+        /*.pipe(cache('style:build'))*/
 	    .pipe(plumber({errorHandler:
 		    notify.onError(function (err) {
 			    return {
@@ -122,7 +122,9 @@ gulp.task('style:build', function () {
         }))
         .pipe(prefixer())
         .pipe(remember('style:build'))
-        .pipe(cssmin())
+        .pipe(cssmin({
+            keepSpecialComments: 0
+        }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.css))
         .pipe(reload({stream: true}));
